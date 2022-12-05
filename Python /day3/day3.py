@@ -22,23 +22,16 @@ def solve(input, part):
 
     if part == "two":
         for i in range(len(input)//3):
-            seen = []
             preduplicates = []
 
-            one = input[3*i]
-            two = input[3*i+1]
-            three = input[3*i+2]
+            for second in input[3*i+1]:
+                if second in input[3*i]:
+                    preduplicates.append(second)
 
-            for onechar in one:
-                seen.append(onechar)
-            for twochar in two:
-                if twochar in seen:
-                    preduplicates.append(twochar)
-            for threechar in three:
-                if threechar in preduplicates:
-                    duplicates.append(threechar)
+            for third in input[3*i+2]:
+                if third in preduplicates:
+                    duplicates.append(third)
                     break
-
 
     for character in duplicates:
         if (ord(character) < 97):
@@ -49,4 +42,5 @@ def solve(input, part):
     return len(duplicates), result
 
 if __name__ == '__main__':
+    print(solve(parse("./input"), "one"))
     print(solve(parse("./input"), "two"))
